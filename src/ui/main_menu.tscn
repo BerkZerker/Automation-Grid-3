@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://main_menu_scene"]
+[gd_scene load_steps=2 format=3 uid="uid://bmynu84lusbgd"]
 
-[ext_resource type="Script" path="res://src/ui/main_menu.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://dqcy3c7h4513h" path="res://src/ui/main_menu.gd" id="1_script"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -23,23 +23,24 @@ grow_vertical = 2
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Automation Grid 3"
 horizontal_alignment = 1
 
-[node name="HostButton" type="Button" parent="VBoxContainer"]
+[node name="HostButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Host Game"
 
-[node name="JoinAddress" type="LineEdit" parent="VBoxContainer"]
+[node name="JoinAddress" type="LineEdit" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "127.0.0.1"
 placeholder_text = "IP Address"
 alignment = 1
 
-[node name="JoinButton" type="Button" parent="VBoxContainer"]
+[node name="JoinButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Join Game"
 

@@ -3,6 +3,8 @@ extends Node
 signal player_connected(peer_id: int, player_info: Dictionary)
 signal player_disconnected(peer_id: int)
 signal server_disconnected
+signal connected_to_server
+signal connection_failed
 
 const PORT = 7000
 const DEFAULT_SERVER_IP = "127.0.0.1"
@@ -58,10 +60,12 @@ func _on_connected_ok() -> void:
 	print("Successfully connected to server")
 	# Register ourselves with the server (and by extension other clients if server relays)
 	_register_player.rpc_id(1, player_info)
+	connected_to_server.emit()
 
 func _on_connection_fail() -> void:
 	push_error("Connection failed")
 	multiplayer.multiplayer_peer = null
+	connection_failed.emit()
 
 func _on_server_disconnected() -> void:
 	print("Server disconnected")

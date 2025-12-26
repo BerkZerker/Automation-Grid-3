@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhvvhsx3xeqv4"]
+
+[ext_resource type="Script" uid="uid://c0chk4tdw8i1y" path="res://src/main/game_world.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://5h6oxfgntan5" path="res://src/terrain/chunk_manager.gd" id="2_terrain"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+
+[node name="GameWorld" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 10, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Players")
+
+[node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Buildings")
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="Buildings" type="Node3D" parent="."]
+
+[node name="Terrain" type="Node3D" parent="."]
+script = ExtResource("2_terrain")
