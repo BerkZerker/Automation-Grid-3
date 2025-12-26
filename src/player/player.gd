@@ -3,6 +3,7 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const GRAVITY = 9.8
+const MOUSE_SENSITIVITY = 0.002
 
 @onready var camera = $Camera3D
 @onready var sync = $MultiplayerSynchronizer
@@ -13,6 +14,7 @@ func _enter_tree():
 
 func _ready():
 	if is_multiplayer_authority():
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		camera.current = true
 		position = Vector3(0, 50, 0) # Spawn high
 		
@@ -53,6 +55,17 @@ func _physics_process(delta):
 func _unhandled_input(event):
 	if not is_multiplayer_authority():
 		return
+
+	if event.is_action_pressed("ui_cancel"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
+		camera.rotate_x(-event.relative.y * MOUSE_SENSITIVITY)
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-89), deg_to_rad(89))
 
 	if event.is_action_pressed("build"): # Space or Enter usually, but let's use Click if mapped, or define 'fire'
 		# For MVP let's use 'ui_accept' (Space) for jump, so we need a build key.
