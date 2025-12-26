@@ -28,6 +28,7 @@ func _ready():
 	var config = SceneReplicationConfig.new()
 	config.add_property(".:position")
 	config.add_property(".:rotation")
+	config.add_property("Camera3D:rotation")
 	sync.replication_config = config
 
 func _physics_process(delta):

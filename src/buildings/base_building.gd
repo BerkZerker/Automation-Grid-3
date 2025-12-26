@@ -24,8 +24,12 @@ func _on_tick():
 	inventory.add_item("iron_ore", 1)
 	_update_label()
 
+@rpc("authority", "call_local", "reliable")
+func _update_label_rpc(total: int):
+	label.text = str(total)
+
 func _update_label():
 	var total = 0
 	for slot in inventory.slots:
 		total += slot.count
-	label.text = str(total)
+	_update_label_rpc.rpc(total)

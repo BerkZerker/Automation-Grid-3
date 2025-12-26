@@ -26,8 +26,8 @@ func _process(_delta):
 		_update_chunks()
 
 func _update_chunks():
-	var px = int(player.position.x) / 16.0
-	var pz = int(player.position.z) / 16.0
+	var px = int(player.position.x / 16.0)
+	var pz = int(player.position.z / 16.0)
 	
 	for x in range(px - view_distance, px + view_distance + 1):
 		for z in range(pz - view_distance, pz + view_distance + 1):
